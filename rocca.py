@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import pandas as pd
 
 options = webdriver.ChromeOptions()
 options.add_argument('--ignore-certificate-errors')
@@ -55,6 +56,8 @@ for categories in list_categories:
     except:
         pass
 
+
+list_products = []
 
 url_list = list(set(url_list))
 for url in url_list:
@@ -120,5 +123,10 @@ for url in url_list:
 
     
     print(dict_products)
+
+    list_products.append(dict_products)
     
+
+dados = pd.DataFrame(list_products)
+dados.to_excel("produtos_rocca.xlsx", index=False)
 

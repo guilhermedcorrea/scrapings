@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import pandas as pd
+import time
 
 
 options = webdriver.ChromeOptions()
@@ -37,8 +39,12 @@ for page in range(1, max_page + 1):
     except:
         pass
 
+
+list_products = []
 for url in urls:
     driver.get(url)
+
+    time.sleep(3)
 
     dict_product = {}
 
@@ -102,3 +108,8 @@ for url in urls:
     dict_product.update(data_dict)
 
     print(dict_product)
+    list_products.append(dict_product)
+
+
+dados = pd.DataFrame(list_products)
+dados.to_excel("produtos_ceusa.xlsx", index=False)
