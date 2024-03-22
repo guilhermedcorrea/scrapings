@@ -7,13 +7,13 @@ urls = []
 for page in range(1, max_page + 1):
     url = f"https://www.ceusa.com.br/pt/produtos?_page={page}&query=&formato=&cores="
     response = requests.get(url)
-    if response.status_code == 200:  # Verificar se a solicitação foi bem-sucedida
+    if response.status_code == 200:  
         soup = BeautifulSoup(response.content, 'html.parser')
-        product_links = soup.find_all('a', class_='absolute')  # Encontrar todos os elementos 'a' com a classe 'absolute'
+        product_links = soup.find_all('a', class_='absolute')  
         for link in product_links:
             href = link.get('href')
-            if href and "/pt/produtos/" in href:  # Verificar se o URL contém "/pt/produtos/"
-                product_url = f"https://www.ceusa.com.br{href}"  # Corrigir o formato do URL
+            if href and "/pt/produtos/" in href:  
+                product_url = f"https://www.ceusa.com.br{href}"  
                 print(product_url)
                 print(page)
                 urls.append(product_url)
